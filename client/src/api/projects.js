@@ -1,4 +1,4 @@
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+const API = import.meta.env.VITE_API_URL || "https://comp229-assignment3-mern.onrender.com/api/projects"
 
 export const getProjects = async () => {
   const res = await fetch(`${API}/projects`)

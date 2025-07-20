@@ -1,6 +1,6 @@
 // api/contacts.js
 import axios from "axios"
-const API = "http://localhost:3000/api/contacts"
+const API = "https://comp229-assignment3-mern.onrender.com/api/projects"
 
 export const getContacts = async () => {
   try {

@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   getProjects,
   createProject,
-  deleteProject
+  deleteProject,
 } from "../api/projects"
 
 export default function ProjectList() {
   const [projects, setProjects] = useState([])
   const [title, setTitle] = useState("")
   const [technologies, setTechnologies] = useState("")
-  const token = localStorage.getItem("jwt")
-    ? JSON.parse(localStorage.getItem("jwt")).token
-    : ""
+  const navigate = useNavigate()
+
+  // ✅ Get token and role from localStorage
+  const authData = localStorage.getItem("jwt")
+    ? JSON.parse(localStorage.getItem("jwt"))
+    : null
+
+  const token = authData?.token || ""
+  const role = authData?.user?.role || ""
+
+  // ✅ Block unauthorized users
+  useEffect(() => {
+    if (role !== "admin") {
+      alert("Access Denied: Admins only")
+      navigate("/dashboard")
+    } else {
+      loadProjects()
+    }
+  }, [])
 
   const loadProjects = async () => {
     const data = await getProjects()
@@ -20,20 +37,13 @@ export default function ProjectList() {
     }
   }
 
-  useEffect(() => {
-    loadProjects()
-  }, [])
-
   const handleAdd = async (e) => {
     e.preventDefault()
-    
 
     if (!title.trim() || !technologies.trim()) {
       alert("Please fill in both fields.")
       return
     }
-    console.log("What I'm sending:", { title, technologies });
-    
 
     const newProject = { title, technologies }
     const result = await createProject(newProject, token)
@@ -67,29 +77,49 @@ export default function ProjectList() {
             <br />
             Technologies: {project.technologies || "(None)"}
             <br />
-            <button onClick={() => handleDelete(project._id)}>Delete</button>
+            {/* ✅ Admin-only Delete button */}
+            {role === "admin" && (
+              <button onClick={() => handleDelete(project._id)}>
+                Delete
+              </button>
+            )}
           </li>
         ))}
       </ul>
 
-      <h3>Add New Project</h3>
-      <form onSubmit={handleAdd} style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "10px" }}>
-        <input
-          type="text"
-          placeholder="Project Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={{ flex: "1 1 200px", padding: "8px" }}
-        />
-        <input
-          type="text"
-          placeholder="Technologies"
-          value={technologies}
-          onChange={(e) => setTechnologies(e.target.value)}
-          style={{ flex: "1 1 200px", padding: "8px" }}
-        />
-        <button type="submit" style={{ padding: "8px 16px" }}>Add</button>
-      </form>
+      {/* ✅ Admin-only Add Form */}
+      {role === "admin" && (
+        <>
+          <h3>Add New Project</h3>
+          <form
+            onSubmit={handleAdd}
+            style={{
+              display: "flex",
+              gap: "10px",
+              flexWrap: "wrap",
+              marginTop: "10px",
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Project Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              style={{ flex: "1 1 200px", padding: "8px" }}
+            />
+            <input
+              type="text"
+              placeholder="Technologies"
+              value={technologies}
+              onChange={(e) => setTechnologies(e.target.value)}
+              style={{ flex: "1 1 200px", padding: "8px" }}
+            />
+            <button type="submit" style={{ padding: "8px 16px" }}>
+              Add
+            </button>
+          </form>
+        </>
+      )}
     </div>
   )
 }

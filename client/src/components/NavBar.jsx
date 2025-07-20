@@ -28,16 +28,20 @@ const NavBar = () => {
         <Link to="/projects">Projects</Link>
         <Link to="/services">Services</Link>
         <Link to="/contact">Contact Me</Link>
-        
+
 
         {auth ? (
-          <>
-            <Link to="/dashboard">Dashboard</Link>
-            <button onClick={handleLogout} style={styles.button}>Logout</button>
-          </>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
+  <>
+    <Link to="/dashboard">Dashboard</Link>
+    <button onClick={handleLogout} style={styles.button}>Logout</button>
+  </>
+) : (
+  <>
+    <Link to="/login">Login</Link>
+    <Link to="/signup">Signup</Link> {/* ✅ Add this line */}
+  </>
+)}
+
       </div>
     </nav>
   )

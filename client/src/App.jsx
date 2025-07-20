@@ -20,6 +20,8 @@ import ContactList from './components/ContactList';
 import QualificationList from './components/QualificationList';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import Signup from "./components/Signup";
+
 
 // ------------------ App Component ------------------
 function App() {
@@ -36,7 +38,8 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
-           
+            <Route path="signup" element={<Signup />} /> {/* ✅ Add this route */}
+
   {/* 🔐 Assignment 3 Routes */}
   <Route path="/login" element={<Login />} />
   <Route

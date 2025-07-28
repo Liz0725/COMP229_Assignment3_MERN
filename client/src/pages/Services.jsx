@@ -5,6 +5,7 @@
 // Description: A React component displaying service/project cards with title, description, role, and outcome.
 
 import React from 'react';
+import Layout from '../components/Layout';
 
 // ------------------ Services Data ------------------
 const services = [
@@ -34,46 +35,53 @@ const services = [
 // ------------------ Services Component ------------------
 function Services() {
   return (
-    <div>
-      <h1>Services I Offer</h1>
+    <Layout>
+      <div>
+        <h1>Services I Offer</h1>
 
-      {/* ------------------ Service Cards ------------------ */}
-      <div style={styles.container}>
-        {services.map((service, index) => (
-          <div key={index} style={styles.card}>
-            <img src={service.image} alt={service.title} style={styles.image} />
-            <h3>{service.title}</h3>
-            <p><strong>Role:</strong> {service.role}</p>
-            <p>{service.description}</p>
-            <p><strong>Outcome:</strong> {service.outcome}</p>
-          </div>
-        ))}
+        {/* ------------------ Service Cards ------------------ */}
+        <div style={styles.container}>
+          {services.map((service, index) => (
+            <div key={index} style={styles.card}>
+              <img src={service.image} alt={service.title} style={styles.image} />
+              <h3>{service.title}</h3>
+              <p><strong>Role:</strong> {service.role}</p>
+              <p>{service.description}</p>
+              <p><strong>Outcome:</strong> {service.outcome}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
 // ------------------ Inline Styles ------------------
 const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    gap: '30px',
+    marginTop: '30px',
+    flexWrap: 'wrap',
+    maxWidth: '900px',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
   card: {
     width: '250px',
     backgroundColor: '#1e1f26',
     padding: '20px',
     borderRadius: '8px',
-    color: '#fff'
+    color: '#fff',
+    boxSizing: 'border-box'
   },
   image: {
     width: '100%',
     height: '140px',
     objectFit: 'cover',
     marginBottom: '10px'
-  },
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '30px',
-    marginTop: '30px',
-    flexWrap: 'nowrap'
   }
 };
 

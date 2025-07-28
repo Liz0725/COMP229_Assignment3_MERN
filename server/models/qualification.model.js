@@ -1,12 +1,15 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const QualificationSchema = new mongoose.Schema({
-  title: String,
-  firstname: String,
-  lastname: String,
-  email: String,
-  completion: Date,
-  description: String
-})
+  title: {
+    type: String,
+    required: true
+  },
+  institution: {
+    type: String,
+    required: true
+  }
+});
 
-export default mongoose.model('Qualification', QualificationSchema)
+const Qualification = mongoose.model('Qualification', QualificationSchema);
+export default Qualification;

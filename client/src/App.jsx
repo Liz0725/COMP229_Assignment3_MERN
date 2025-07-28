@@ -28,7 +28,7 @@ function App() {
   return (
     <Router>
       <div style={styles.layout}>
-        <NavBar />
+        
         
         {/* ------------------ Page Content Area ------------------ */}
         <div style={styles.page}>

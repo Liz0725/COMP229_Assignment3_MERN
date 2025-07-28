@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+.center-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* vertical centering */
+  align-items: center;       /* horizontal centering */
+  height: 100vh;             /* full height of the screen */
+  text-align: center;
+  padding: 20px;             /* optional spacing */
+}
+

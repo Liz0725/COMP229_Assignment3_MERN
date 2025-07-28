@@ -2,13 +2,23 @@ import Qualification from '../models/qualification.model.js';
 
 export const create = async (req, res) => {
   try {
-    const qualification = new Qualification(req.body);
+    const { title, institution } = req.body;
+
+    if (!title || !institution) {
+      return res.status(400).json({ error: 'Both title and institution are required.' });
+    }
+
+    const qualification = new Qualification({ title, institution });
     await qualification.save();
     res.status(201).json(qualification);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: 'Failed to create qualification' });
   }
 };
+
+
+
 
 export const list = async (req, res) => {
   try {

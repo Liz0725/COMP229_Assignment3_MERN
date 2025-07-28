@@ -50,23 +50,31 @@ const NavBar = () => {
 // ------------------ Inline Styles ------------------
 const styles = {
   nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#11121a',
-    padding: '20px',
-    marginBottom: '40px'
-  },
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  backgroundColor: '#11121a',
+  padding: '20px 40px',       // ✅ More left/right spacing
+  marginBottom: '40px',
+  flexWrap: 'wrap',           // ✅ Optional: support smaller screens
+},
+
   logo: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#61dafb'
-  },
+  fontSize: '32px',         // 🔼 Make it larger
+  fontWeight: 'bold',
+  color: '#61dafb',
+  letterSpacing: '2px',     // 🔵 Optional: Adds space between M and K
+  marginLeft: '10px'        // 🔵 Optional: Slight padding from left edge
+},
+
   links: {
-    display: 'flex',
-    gap: '20px',
-    alignItems: 'center'
-  },
+  display: 'flex',
+  gap: '20px',
+  alignItems: 'center',
+  flexGrow: 1,
+  justifyContent: 'flex-end', // ✅ Push links to the right
+},
+
   button: {
     backgroundColor: '#61dafb',
     border: 'none',
